@@ -134,25 +134,30 @@
                     <div class="error-holder">
                         <span id="cc_form_error"></span>
                     </div>
-                    <script>var wpwlOptions = {
-                        style: "plain",
-                        forceCardHolderEqualsBillingName: true,
-                        showCVVHint: true,
-                        brandDetection: true,
-                        onReady: function(){ 
-                          $(".wpwl-group-cardNumber").after($(".wpwl-group-brand").detach());
-                          $(".wpwl-group-cvv").after( $(".wpwl-group-cardHolder").detach());
-                          var visa = $(".wpwl-brand:first").clone().removeAttr("class").attr("class", "wpwl-brand-card wpwl-brand-custom wpwl-brand-VISA")
-                          var master = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MASTER");
-                          $(".wpwl-brand:first").after( $(master)).after( $(visa));
-                        },
-                        onChangeBrand: function(e){
-                          $(".wpwl-brand-custom").css("opacity", "0.3");
-                          $(".wpwl-brand-" + e).css("opacity", "1"); 
+                    <script>
+                        var wpwlOptions = {
+                            style: "plain",
+                            forceCardHolderEqualsBillingName: true,
+                            showCVVHint: true,
+                            brandDetection: true,
+                            onReady: function () {
+                                $(".wpwl-group-cardNumber").after($(".wpwl-group-brand").detach());
+                                $(".wpwl-group-cvv").after($(".wpwl-group-cardHolder").detach());
+                                var visa = $(".wpwl-brand:first").clone().removeAttr("class").attr("class", "wpwl-brand-card wpwl-brand-custom wpwl-brand-VISA")
+                                var master = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MASTER");
+                                $(".wpwl-brand:first").after($(master)).after($(visa));
+                            },
+                            onChangeBrand: function (e) {
+                                $(".wpwl-brand-custom").css("opacity", "0.3");
+                                $(".wpwl-brand-" + e).css("opacity", "1");
+                            }
                         }
-                      }</script>
-                    <script src="https://truevo.eu/v1/paymentWidgets.js?checkoutId=5CC95ABD6800692F229FA7824A399BA3.prod01-vm-tx08"></script>
-                    <form action="https://truevo.eu/v1/checkouts/5CC95ABD6800692F229FA7824A399BA3.prod01-vm-tx08/payment" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+                    </script>
+                    <script
+                        src="https://truevo.eu/v1/paymentWidgets.js?checkoutId=5CC95ABD6800692F229FA7824A399BA3.prod01-vm-tx08"></script>
+                    <form
+                        action="https://truevo.eu/v1/checkouts/5CC95ABD6800692F229FA7824A399BA3.prod01-vm-tx08/payment"
+                        class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
                 </div>
 
 
