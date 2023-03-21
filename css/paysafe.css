@@ -110,6 +110,7 @@ form.cardForm {
 }
 
 form .input {
+    position: relative;
     width: 100%;
     padding: 10px;
     border: 1px solid var(--high_inactive);
@@ -164,14 +165,19 @@ select:-webkit-autofill:focus {
     z-index: 30;
 }
 
-::-webkit-input-placeholder { 
+::-webkit-input-placeholder {
     color: #5f6062 !important;
-  }
-  
-  :-moz-placeholder {
+}
+
+:-moz-placeholder {
     color: #5f6062 !important;
-  }
-  
-  ::-moz-placeholder {
+}
+
+::-moz-placeholder {
     color: #5f6062 !important;
-  }
+}
+
+#card-expiry span.glyphicon.glyphicon-question-sign,
+#card-cvc span.glyphicon.glyphicon-question-sign{
+    top: 10px;
+}
