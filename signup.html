@@ -32,6 +32,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/google.js"></script>
 </head>
 
 <body class="signUp cc_flow">
@@ -367,7 +368,11 @@
                         </div>
                         <input class="button" type="submit" value="Continue">
                     </form>
-                    <a class="google_link" id="google_pay"><img class="google_button" src="./images/button.png" /></a>
+                    <div id="container"></div>
+                    <script async   src="https://pay.google.com/gp/p/js/pay.js"   onload="onGooglePayLoaded()"></script>
+
+
+                    <a class="google_link" id="google_pay" style="display: none;"><img class="google_button" src="./images/button.png" /></a>
                     <div id="container"></div>
                     <div class="payment_large">
                         <img src="https://img.onlinerecipesbook.com/imgs/mastercard.png">

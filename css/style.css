@@ -5285,3 +5285,9 @@ textarea#message {
 	transform: translate(-50%, -50%);
 	width: 360px;
 }
+
+div#container {
+	width: fit-content;
+	display: block;
+	margin: auto;
+}
