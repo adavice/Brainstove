@@ -161,7 +161,7 @@ function onGooglePayLoaded() {
 function addGooglePayButton() {
     const paymentsClient = getGooglePaymentsClient();
     const button =
-        paymentsClient.createButton({ onClick: onGooglePaymentButtonClicked, buttonColor: 'white', buttonLocale: 'en'});
+        paymentsClient.createButton({ onClick: onGooglePaymentButtonClicked, buttonColor: 'white', buttonLocale: 'en', buttonSizeMode: 'fill'});
     document.getElementById('container').appendChild(button);
 }
 

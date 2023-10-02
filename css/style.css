@@ -5287,7 +5287,10 @@ textarea#message {
 }
 
 div#container {
-	width: fit-content;
 	display: block;
 	margin: auto;
+}
+
+.gpay-card-info-container{
+	min-width: 190px !important;
 }
