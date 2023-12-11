@@ -5294,3 +5294,24 @@ div#container {
 .gpay-card-info-container{
 	min-width: 190px !important;
 }
+
+.flex-block {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.time-text{
+	text-align: center;
+	color: var(--bright);
+}
+
+@media screen and (max-width: 569px) {
+	.flex-block {
+		gap: 20px;
+	}
+}
+
+.contact_page h2.monsterHeader{
+	margin-bottom: 0px;
+}
