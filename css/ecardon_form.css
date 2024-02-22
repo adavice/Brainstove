@@ -244,14 +244,3 @@ div.wpwl-brand-custom {
 .wpwl-brand-MASTER {
     background-position: 0px 5826px !important;
 }
-
-.wpwl-control {
-    background: transparent !important;
-    border: 1px solid #394d79 !important;
-    border-radius: 0px !important;
-    font-family: sans-serif !important;
-}
-
-.wpwl-control input::placeholder {
-    color: rgb(104 104 104) !important;
-}
