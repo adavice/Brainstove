@@ -154,8 +154,8 @@ div.wpwl-brand-custom {
 .wpwl-group-submit.wpwl-clearfix button {
     font-size: 16px;
     font-weight: 600;
-    background: var(--secondary);
-    color: var(--main-text);
+    background: var(--high_inactive);
+    color: var(--highlight);
     margin: 20px auto 30px;
     padding: 8px;
     border-radius: 8px;
@@ -236,6 +236,22 @@ div.wpwl-brand-custom {
     background-position: 0 583px;
 }
 
+/*new style*/
+.wpwl-brand-VISA {
+    background-position: 0 750px !important;
+}
+
 .wpwl-brand-MASTER {
-    background-position: 0px 5153px;
+    background-position: 0px 5826px !important;
+}
+
+.wpwl-control {
+    background: transparent !important;
+    border: 1px solid #394d79 !important;
+    border-radius: 0px !important;
+    font-family: sans-serif !important;
+}
+
+.wpwl-control input::placeholder {
+    color: rgb(104 104 104) !important;
 }
