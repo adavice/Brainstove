@@ -5499,6 +5499,151 @@ div#container {
 	box-shadow: 0 6px 20px rgba(2, 180, 132, 0.4);
 }
 
+/*-- Chat Messages Styling (Messenger-style) --*/
+.message {
+	display: flex;
+	margin-bottom: 16px;
+	animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Coach messages - aligned left */
+.message:not(.user) {
+	justify-content: flex-start;
+}
+
+/* User messages - aligned right */
+.message.user {
+	justify-content: flex-end;
+}
+
+.message-content {
+	max-width: 70%;
+	position: relative;
+	padding: 12px 16px;
+	border-radius: 18px;
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	word-wrap: break-word;
+}
+
+/* Coach message styling */
+.message:not(.user) .message-content {
+	background: var(--primary);
+	border: 1px solid var(--secondary);
+	border-top-left-radius: 4px;
+	color: var(--main-text);
+}
+
+/* User message styling */
+.message.user .message-content {
+	background: var(--high_inactive);
+	border: 1px solid var(--highlight);
+	border-top-right-radius: 4px;
+	color: white;
+}
+
+.message-timestamp {
+	font-size: 0.75rem;
+	opacity: 0.7;
+	margin-top: 4px;
+	text-align: right;
+	color: inherit;
+}
+
+/* Ensure timestamp is always at bottom right */
+.message.user .message-timestamp {
+	text-align: right;
+}
+
+.message:not(.user) .message-timestamp {
+	text-align: right;
+}
+
+/* AI markdown content */
+.ai-markdown {
+	line-height: 1.6;
+}
+
+.ai-markdown br {
+	display: block;
+	content: "";
+	margin-top: 0.5em;
+}
+
+/* Delete button styling */
+.delete-message {
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	color: inherit;
+	padding: 4px 8px;
+	margin-left: 8px;
+}
+
+.message:hover .delete-message {
+	opacity: 0.6;
+}
+
+.delete-message:hover {
+	opacity: 1 !important;
+	color: #dc3545;
+}
+
+/* Image and audio message blocks */
+.image-message-wrapper,
+.audio-message-block {
+	width: 100%;
+}
+
+.image-preview-block {
+	margin-bottom: 8px;
+}
+
+.image-preview-block img {
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Date separator */
+.chat-date-separator {
+	text-align: center;
+	margin: 20px 0;
+	color: var(--secondary);
+	font-size: 0.85rem;
+	font-weight: 500;
+	position: relative;
+}
+
+.chat-date-separator::before,
+.chat-date-separator::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	width: 40%;
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--secondary), transparent);
+}
+
+.chat-date-separator::before {
+	left: 0;
+}
+
+.chat-date-separator::after {
+	right: 0;
+}
+/*-- //Chat Messages Styling --*/
+
 .feature-card {
 	background: var(--primary);
 	border-radius: 8px;
@@ -6060,6 +6205,15 @@ nav.container::after {
 	background: var(--high_inactive);
     border: 0;
     font-size: 1.5rem;
+}
+
+.coach-item-avatar {
+	width: 60px;
+	height: 60px;
+}
+
+.coach-card h6 {
+	text-align: left;
 }
 
 @keyframes slideInRight {

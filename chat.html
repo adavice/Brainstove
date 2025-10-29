@@ -21,6 +21,116 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <style>
+      /* Coach Status Indicator Styling */
+      .coach-status {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: 8px;
+        position: relative;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+        animation: statusPulse 2s ease-in-out infinite;
+      }
+
+      /* Online status - green */
+      .status-online {
+        background: linear-gradient(135deg, #00ff88, #00cc66);
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.6), 0 0 0 2px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Away status - yellow/orange */
+      .status-away {
+        background: linear-gradient(135deg, #ffaa00, #ff8800);
+        box-shadow: 0 0 8px rgba(255, 170, 0, 0.6), 0 0 0 2px rgba(0, 0, 0, 0.3);
+        animation: statusPulse 3s ease-in-out infinite;
+      }
+
+      /* Offline status - gray */
+      .status-offline {
+        background: linear-gradient(135deg, #666666, #444444);
+        box-shadow: 0 0 4px rgba(102, 102, 102, 0.4), 0 0 0 2px rgba(0, 0, 0, 0.3);
+        animation: none;
+      }
+
+      /* Responding/typing status - pulsing blue */
+      .status-responding {
+        background: linear-gradient(135deg, #00aaff, #0088cc);
+        box-shadow: 0 0 12px rgba(0, 170, 255, 0.8), 0 0 0 2px rgba(0, 0, 0, 0.3);
+        animation: statusPulseResponding 1s ease-in-out infinite;
+      }
+
+      /* Pulse animation for online status */
+      @keyframes statusPulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
+      }
+
+      /* Faster pulse for responding status */
+      @keyframes statusPulseResponding {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 12px rgba(0, 170, 255, 0.8), 0 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+        50% {
+          transform: scale(1.2);
+          box-shadow: 0 0 20px rgba(0, 170, 255, 1), 0 0 0 2px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      /* Larger status dot in the header */
+      #chatCoachName .coach-status {
+
+        width: 12px;
+        height: 12px;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+
+      /* Status badge near avatar in header */
+      .coach-status-badge {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid white;
+        background: linear-gradient(135deg, #666, #444);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .coach-status-badge.status-online {
+        background: linear-gradient(135deg, #00ff88, #00cc66);
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.6), 0 2px 4px rgba(0, 0, 0, 0.2);
+        animation: statusPulse 2s ease-in-out infinite;
+      }
+
+      .coach-status-badge.status-away {
+        background: linear-gradient(135deg, #ffaa00, #ff8800);
+        box-shadow: 0 0 8px rgba(255, 170, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.2);
+        animation: statusPulse 3s ease-in-out infinite;
+      }
+
+      .coach-status-badge.status-offline {
+        background: linear-gradient(135deg, #666, #444);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        animation: none;
+      }
+
+      .coach-status-badge.status-responding {
+        background: linear-gradient(135deg, #00aaff, #0088cc);
+        box-shadow: 0 0 12px rgba(0, 170, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.2);
+        animation: statusPulseResponding 1s ease-in-out infinite;
+      }
+    </style>
   </head>
   <body>
 <!-- Google Tag Manager (noscript) -->
@@ -99,8 +209,11 @@
 						<div class="chat-header">
 							<div class="d-flex align-items-center justify-content-between">
 								<div class="d-flex align-items-center gap-3">
-									<div class="coach-item-avatar" id="chatCoachAvatar">
-										<i class="fas fa-user"></i>
+									<div class="position-relative">
+										<div class="coach-item-avatar" id="chatCoachAvatar">
+											
+										</div>
+										<div class="coach-status-badge" id="chatCoachStatusBadge"></div>
 									</div>
 									<div>
 										<h6 class="mb-1 fw-semibold chat-coach-name" id="chatCoachName">
@@ -133,8 +246,10 @@
 							</div>
 						</div>
 						<div class="typing-indicator text-muted small d-none" id="typingIndicator">
-							<i class="fas fa-ellipsis-h me-1"></i>
-							<span>Assistant is typing...</span>
+							<span>Assistant</span>
+                            is typing
+                            <i class="fas fa-ellipsis-h me-1"></i>
+							
 						</div>
 						<div class="chat-input">
 							<div class="chat-input-container">

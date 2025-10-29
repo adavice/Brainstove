@@ -184,6 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const headerName = document.getElementById('chatCoachName');
                 const headerStatus = headerName.querySelector('.coach-status');
                 headerStatus.className = `coach-status status-${status === 'responding' ? currentStatus : status}`;
+                
+                // Update status badge near avatar
+                const statusBadge = document.getElementById('chatCoachStatusBadge');
+                if (statusBadge) {
+                    statusBadge.className = `coach-status-badge status-${status === 'responding' ? currentStatus : status}`;
+                }
             }
 
             if (status !== 'responding') {
@@ -377,6 +383,12 @@ async function handleTextMessage(message, coachId, originalStatus) {
         document.getElementById('chatCoachAvatar').style.backgroundImage = avatar;
         document.getElementById('chatCoachName').innerHTML = `${name} <div class="coach-status status-${status}"></div>`;
         document.getElementById('chatCoachRole').textContent = role;
+        
+        // Update status badge near avatar
+        const statusBadge = document.getElementById('chatCoachStatusBadge');
+        if (statusBadge) {
+            statusBadge.className = `coach-status-badge status-${status}`;
+        }
         
         // Load chat history for selected coach
         activeCoachId = newCoachId;

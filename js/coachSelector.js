@@ -144,12 +144,12 @@ async function renderCoachesInModal(gameKey) {
                       coach.avatar || "img/default-avatar.png"
                     }" alt="${
           coach.name
-        }" width="60" height="60" class="rounded-circle">
+        }" width="60" height="60" class="rounded-circle coach-avatar">
                     <div>
-                        <h6 class="mb-1">${coach.name}</h6>
+                        <h6 class="mb-1 text-start">${coach.name}</h6>
                         <div class="flags"></div>
-                        <small class="text-muted">${coach.role || ""}${
-          coach.role ? " " + expertLabel : ""
+                        <small class="text-muted">${
+          coach.role ? `${coach.role} ${expertLabel}` : ""
         }</small>
                         <div class="mt-1">
                             <span class="badge bg-primary">${statusLabel}</span>
