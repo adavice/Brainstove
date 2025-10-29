@@ -144,7 +144,7 @@ async function renderCoachesInModal(gameKey) {
                       coach.avatar || "img/default-avatar.png"
                     }" alt="${
           coach.name
-        }" width="60" height="60" class="rounded-circle coach-avatar">
+        }" width="60" height="60" class="rounded-circle coach-select-avatar">
                     <div>
                         <h6 class="mb-1 text-start">${coach.name}</h6>
                         <div class="flags"></div>
