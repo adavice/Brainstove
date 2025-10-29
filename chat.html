@@ -359,23 +359,8 @@
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', function() {
         console.log('DOM loaded, setting up coach selector triggers...');
-        
-        // Test if Bootstrap is available
-        if (typeof bootstrap !== 'undefined') {
-            console.log('Bootstrap 5 is available:', bootstrap);
-        } else {
-            console.error('Bootstrap 5 is not available!');
-        }
-        
+    
         setupCoachSelectorTriggers();
-        
-        // Test button exists
-        const button = document.getElementById('coachingNavLink');
-        if (button) {
-            console.log('Coach selector button found:', button);
-        } else {
-            console.error('Coach selector button NOT found!');
-        }
         
         // Fix Bootstrap 3 navbar toggle functionality
         const navbarToggle = document.querySelector('.navbar-toggle');
