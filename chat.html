@@ -54,7 +54,7 @@
 }
 
 #gamesList img {
-	width: 50px;
+	width: unset;
 }
 
 #gamesList .list-group-item.active {
@@ -233,9 +233,6 @@ nav.container::after {
 
 /* Mobile responsive */
 @media (max-width: 767px) {
-	.chat-input-container {
-		flex-direction: column;
-	}
 	.navbar-collapse {
 		width: auto;
 		border-top: 1px solid transparent;
@@ -431,24 +428,10 @@ nav.container::after {
 .coach-select-avatar {
 	background-size: cover;
     background-position: center;
-	width: 80px;
-	height: 80px;
 }
 
 .coach-card h6 {
 	text-align: left;
-}
-
-.chat-hint {
-	text-transform: none;
-	color: var(--secondary);
-	font-weight: 400!important;
-}
-
-.chat-hint i {
-	color: #fff;
-	font-size: 2rem!important;
-	vertical-align: top;
 }
 
 @keyframes slideInRight {
@@ -676,21 +659,16 @@ nav.container::after {
 									</div>
 								</div>
 								<div>
-                                    <button
-                                        id="coachingNavLink"
-                                        class="btn btn-outline-light btn-lg d-flex flex-column align-items-center gap-1 px-4 py-3"
-                                        title="Switch Game and Coach"
-                                        style="border: 2px solid rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); transition: all 0.3s ease;"
-                                        onmouseover="this.style.background='rgba(255, 255, 255, 0.2)'; this.style.borderColor='rgba(255, 255, 255, 0.8)'"
-                                        onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'; this.style.borderColor='rgba(255, 255, 255, 0.5)'"
-                                    >
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fas fa-gamepad" style="font-size: 1.2em;"></i>
-                                            
-                                            <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i>
-                                        </div>
-                                    </button>
-                                </div>
+									<button
+										id="coachingNavLink"
+										class="btn btn-outline-light btn-sm"
+										title="Switch Game and Coach"
+										style="border: 2px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);"
+									>
+										<i class="fas fa-gamepad me-1"></i>
+										<i class="fas fa-chevron-down" style="font-size: 0.8em"></i>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="chat-messages" id="chatMessages">
@@ -699,12 +677,6 @@ nav.container::after {
 								<i class="fas fa-comments"></i>
 								<h5 data-i18n="Welcome to LevelGuidz Chat!">Welcome to Brainstove Chat!</h5>
 								<p data-i18n="Start a conversation paragraph">Start a conversation with our gaming assistant to get tips, strategies, and more!</p>
-								<h5 class="chat-hint">Click on <i class="fas fa-gamepad"></i> above to select your game and coach.</h5>
-								<div class="loading-spinner d-none" id="chatLoadingSpinner">
-                                    <div class="spinner-border text-secondary" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
 							</div>
 						</div>
 						<div class="typing-indicator text-muted small d-none" id="typingIndicator">
@@ -814,7 +786,11 @@ nav.container::after {
     <script src="js/login.js"></script>
     <script type="module" src="./js/main.js"></script>
     <script type="module" src="./js/chat.js"></script>
+<<<<<<< HEAD
 	<script type="module" src="./js/coachSelector.js"></script>
+=======
+    <script type="module" src="./js/coachSelector.js"></script>
+>>>>>>> parent of e4d002d (chat fixes)
 <script type="module">
     import { setupCoachSelectorTriggers } from './js/coachSelector.js';
     
