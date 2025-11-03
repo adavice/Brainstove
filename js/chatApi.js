@@ -1,7 +1,6 @@
 import { API_BASE_URL } from './config.js';
 
 export async function loadCoaches() {
-    console.log('🎮 loadCoaches() called from:', getCallerOrigin());
     const response = await fetch(`${API_BASE_URL}?action=list_coaches`, {
         method: 'GET',
         headers: { 'Accept': 'application/json' }
@@ -15,7 +14,6 @@ export function getCurrentUser() {
 }
 
 export async function loadChatHistory(coachId = null) {
-    console.log('💬 loadChatHistory() called from:', getCallerOrigin());
     const spinner = document.getElementById('chatLoadingSpinner');
     
     try {
@@ -52,21 +50,3 @@ export async function loadChatHistory(coachId = null) {
     }
 }
 
-function getCallerOrigin() {
-    try {
-        throw new Error(); // Create an error to capture the stack trace
-    } catch (e) {
-        // The stack property of the Error object contains the call stack
-        const stackLines = e.stack.split('\n');
-
-        // The first line is the error message itself, the second is getCallerOrigin
-        // The third line typically represents the direct caller of getCallerOrigin
-        if (stackLines.length >= 3) {
-            const callerLine = stackLines[2];
-            // Extract the relevant part of the line, which includes the function name and file/line number
-            // The exact format might vary slightly across environments (browsers/Node.js)
-            return callerLine.trim();
-        }
-    }
-    return 'Unknown Origin';
-}

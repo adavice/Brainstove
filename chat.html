@@ -820,6 +820,7 @@ nav.container::after {
     
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, setting up coach selector triggers...');
     
         setupCoachSelectorTriggers();
         
@@ -842,6 +843,7 @@ nav.container::after {
                 }
             });
             
+            console.log('Navbar toggle functionality restored');
         }
         
         // Test toast functionality (temporary - for testing)
@@ -914,17 +916,20 @@ nav.container::after {
             // Manual close button
             const closeBtn = toast.querySelector('.btn-close');
             closeBtn.addEventListener('click', () => {
+                console.log('Toast manually closed');
                 hideToast(toast);
             });
             
             // Show toast with animation
             setTimeout(() => {
+                console.log('Showing toast with slide-in animation');
                 toast.style.transform = 'translateX(0)';
                 toast.style.opacity = '1';
             }, 50);
             
             // Auto-hide after 12 seconds for testing
             setTimeout(() => {
+                console.log('Auto-hiding toast after 12 seconds');
                 hideToast(toast);
             }, 12000);
             
@@ -933,11 +938,14 @@ nav.container::after {
                 toastElement.style.opacity = '0';
                 setTimeout(() => {
                     if (toastElement.parentNode) {
+                        console.log('Removing toast from DOM');
                         toastElement.remove();
                     }
                 }, 300);
             }
-        };       
+        };
+        
+        console.log('Toast test function available: testToast(true) or testToast(false)');
     });
 </script>
   </body>

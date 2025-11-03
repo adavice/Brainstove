@@ -868,6 +868,7 @@ async function handleImageMessageWithText(base64Image, userText, coachId, origin
     // Expose custom showToast globally so it overrides main.js version on this page
     try {
         window.showToast = showToast;
+        console.log('Custom chat.showToast registered as window.showToast');
     } catch (e) {
         // ignore in non-browser environments
     }
