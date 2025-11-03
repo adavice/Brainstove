@@ -1020,23 +1020,13 @@ async function handleImageMessageWithText(base64Image, userText, coachId, origin
         }
     });
 
-    // Hide coach list and center chat window if coach list is hidden
-    function hideCoachListAndCenterChat() {
-        const coachListPanel = document.querySelector('.coach-list-panel');
-        const chatPanel = document.querySelector('.chat-window-panel');
-        if (coachListPanel && chatPanel) {
-            coachListPanel.style.display = 'none';
-            chatPanel.classList.add('justify-content-center');
-            chatPanel.classList.add('align-items-center');
-            chatPanel.style.margin = '0 auto';
-        }
-    }
-
     // In your loadCoachesList or wherever you hide the coach list:
     // hideCoachListAndCenterChat();
 
-    // Just keep the initial coach list load
-    loadCoachesList();
+// Just keep the initial coach list load
+// if (coachListPanel && !coachListPanel.classList.contains('d-none')) {
+//     loadCoachesList(); // Only load if panel is visible
+// }
 });
 
 

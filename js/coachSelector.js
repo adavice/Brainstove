@@ -92,8 +92,8 @@ function renderGamesList() {
         }" data-game="${game.key}">
             <img src="${game.img}" alt="${game.name}" width="50" height="50" class="rounded">
             <div>
-                <h6 class="mb-0">${game.name}</h6>
-                <small class="text-muted">${game.genre}</small>
+                <h6 class="mb-0 text-start">${game.name}</h6>
+                <small class="text-muted text-start">${game.genre}</small>
             </div>
         </button>
     `;
@@ -146,12 +146,12 @@ async function renderCoachesInModal(gameKey) {
           coach.name
         }" width="60" height="60" class="rounded-circle coach-select-avatar">
                     <div>
-                        <h6 class="mb-1 text-start">${coach.name}</h6>
-                        <div class="flags"></div>
+                        <h6 class="mb-1">${coach.name}</h6>
+                        <div class="flags d-flex"></div>
                         <small class="text-muted">${
           coach.role ? `${coach.role} ${expertLabel}` : ""
         }</small>
-                        <div class="mt-1">
+                        <div class="mt-1 text-center">
                             <span class="badge bg-primary">${statusLabel}</span>
                         </div>
                     </div>
