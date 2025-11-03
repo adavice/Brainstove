@@ -31,44 +31,44 @@ const games = [
     key: "tft",
     name: "Teamfight Tactics",
     genre: "Auto Battler",
-    img: "/images/game-tft.jpg",
+    img: "images/game-tft.jpg",
   },
   {
     key: "lol",
     name: "League of Legends",
     genre: "MOBA",
-    img: "/images/game-lol.jpg",
+    img: "images/game-lol.jpg",
   },
   {
     key: "valorant",
     name: "Valorant",
     genre: "Tactical Shooter",
-    img: "/images/game-valorant.jpg",
+    img: "images/game-valorant.jpg",
   },
   {
     key: "fifa24",
     name: "EA Sports FC 24",
     genre: "Sports",
-    img: "/images/game-fifa24.jpg",
+    img: "images/game-fifa24.jpg",
   },
   { key: "dota2", name: "Dota 2", genre: "MOBA", img: "images/game-dota2.jpg" },
   {
     key: "cs2",
     name: "Counter-Strike 2",
     genre: "Tactical Shooter",
-    img: "/images/game-cs2.jpg",
+    img: "images/game-cs2.jpg",
   },
   {
     key: "apex",
     name: "Apex Legends",
     genre: "Battle Royale",
-    img: "/images/game-apex.jpg",
+    img: "images/game-apex.jpg",
   },
   {
     key: "fifa23",
     name: "FIFA 23",
     genre: "Sports",
-    img: "/images/game-fifa23.jpg",
+    img: "images/game-fifa23.jpg",
   },
 ];
 
@@ -141,7 +141,7 @@ async function renderCoachesInModal(gameKey) {
                   coach.id
                 }">
                     <img src="${
-                      coach.avatar || "/images/default-avatar.png"
+                      coach.avatar || "img/default-avatar.png"
                     }" alt="${
           coach.name
         }" width="60" height="60" class="rounded-circle coach-select-avatar">
@@ -168,11 +168,11 @@ async function renderCoachesInModal(gameKey) {
         const flagsContainer = card.querySelector(".flags");
         if (!flagsContainer) return;
         if (coach && Array.isArray(coach.languages) && coach.languages.length) {
-          // Use the 4x3 svg flags shipped in /css/assets/flag-icons/flags/4x3
+          // Use the 4x3 svg flags shipped in css/assets/flag-icons/flags/4x3
           flagsContainer.innerHTML = coach.languages
             .map((code) => {
               const safeCode = String(code || "").toLowerCase();
-              const imgPath = `/css/assets/flag-icons/flags/4x3/${encodeURIComponent(
+              const imgPath = `css/assets/flag-icons/flags/4x3/${encodeURIComponent(
                 safeCode
               )}.svg`;
               return `<img src="${imgPath}" alt="${safeCode}" title="${safeCode}" width="24" height="18" class="me-1 rounded">`;
@@ -190,7 +190,7 @@ async function renderCoachesInModal(gameKey) {
       card.addEventListener("click", function () {
         const coachId = this.getAttribute("data-coach-id");
         if (coachId) {
-          window.location.href = `/?page=chat&coach=${encodeURIComponent(
+          window.location.href = `chat.html?coach=${encodeURIComponent(
             coachId
           )}`;
         }
@@ -203,7 +203,7 @@ async function renderCoachesInModal(gameKey) {
     coachesList.innerHTML = `
       <div class="text-center py-4 w-100">
         <div class="mb-3 text-muted">${pleaseLogin}</div>
-        <a id="loginModalBtn" href="/?page=login" class="btn btn-primary">${loginBtnText}</a>
+        <a id="loginModalBtn" href="index.html#login" class="btn btn-primary">${loginBtnText}</a>
       </div>
     `;
     setTimeout(() => {
@@ -228,8 +228,8 @@ async function renderCoachesInModal(gameKey) {
               }
             }, 400);
           } else {
-            // Redirect to /?page=login
-            window.location.href = "/?page=login";
+            // Redirect to index.html#login
+            window.location.href = "index.html#login";
           }
         });
       }
