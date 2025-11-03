@@ -31,91 +31,91 @@ document.addEventListener('DOMContentLoaded', () => {
         .split(/\r?\n/).map(line => line.trim()).join('<br>');
     }
 
-    async function loadCoachesList() {
-        try {
-            let coaches, history;
-            // Check for coach param in URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const coachIdParam = urlParams.get('coach');
+    // async function loadCoachesList() {
+    //     try {
+    //         let coaches, history;
+    //         // Check for coach param in URL
+    //         const urlParams = new URLSearchParams(window.location.search);
+    //         const coachIdParam = urlParams.get('coach');
 
-            try {
-                coaches = await loadCoaches();
-                if (coachIdParam) {
-                    // Only load chat history for the selected coach
-                    history = await loadChatHistory(coachIdParam);
-                } else {
-                    // Load all chat history
-                    history = await loadChatHistory();
-                }
-            } catch (historyError) {
-                // If error is "No user logged in", show toast and proceed with empty history
-                if (historyError && historyError.message && historyError.message.includes('No user logged in')) {
-                    // Show plain English toast
-                    if (window.showToast) window.showToast('Please log in to view the chat.', false);
-                    else showToast('Please log in to view the chat.', false);
-                    coaches = await loadCoaches();
-                    history = [];
-                } else {
-                    throw historyError;
-                }
-            }
+    //         try {
+    //             coaches = await loadCoaches();
+    //             if (coachIdParam) {
+    //                 // Only load chat history for the selected coach
+    //                 history = await loadChatHistory(coachIdParam);
+    //             } else {
+    //                 // Load all chat history
+    //                 history = await loadChatHistory();
+    //             }
+    //         } catch (historyError) {
+    //             // If error is "No user logged in", show toast and proceed with empty history
+    //             if (historyError && historyError.message && historyError.message.includes('No user logged in')) {
+    //                 // Show plain English toast
+    //                 if (window.showToast) window.showToast('Please log in to view the chat.', false);
+    //                 else showToast('Please log in to view the chat.', false);
+    //                 coaches = await loadCoaches();
+    //                 history = [];
+    //             } else {
+    //                 throw historyError;
+    //             }
+    //         }
 
-            if (!Array.isArray(coaches)) {
-                throw new Error('Invalid coaches data');
-            }
+    //         if (!Array.isArray(coaches)) {
+    //             throw new Error('Invalid coaches data');
+    //         }
 
-            // Initialize chat history
-            chatHistory = new Map();
-            if (Array.isArray(history)) {
-                if (coachIdParam) {
-                    // Only one coach's history, so use coachIdParam
-                    chatHistory.set(coachIdParam, history);
-                } else {
-                    // Group messages by coachId into arrays
-                    history.forEach(item => {
-                        if (!chatHistory.has(item.coachId)) {
-                            chatHistory.set(item.coachId, []);
-                        }
-                        chatHistory.get(item.coachId).push(item);
-                    });
-                }
-            }
+    //         // Initialize chat history
+    //         chatHistory = new Map();
+    //         if (Array.isArray(history)) {
+    //             if (coachIdParam) {
+    //                 // Only one coach's history, so use coachIdParam
+    //                 chatHistory.set(coachIdParam, history);
+    //             } else {
+    //                 // Group messages by coachId into arrays
+    //                 history.forEach(item => {
+    //                     if (!chatHistory.has(item.coachId)) {
+    //                         chatHistory.set(item.coachId, []);
+    //                     }
+    //                     chatHistory.get(item.coachId).push(item);
+    //                 });
+    //             }
+    //         }
 
-            renderCoaches(coaches);
+    //         renderCoaches(coaches);
 
-            if (coachIdParam) {
-                // Hide coach list (already hidden by default)
-                // Auto-select the coach
-                const coachCard = document.querySelector(`.coach-item[data-id="${coachIdParam}"]`);
-                if (coachCard) {
-                    coachCard.click();
-                } else {
-                    // If not found, select first coach
-                    const firstCoach = document.querySelector('.coach-item');
-                    if (firstCoach) firstCoach.click();
-                }
-            } else {
-                // Show coach list panel if no coach param
-                if (coachListPanel) coachListPanel.style.display = '';
-                // Optionally, auto-select the first coach and restore its chat
-                const firstCoach = document.querySelector('.coach-item');
-                if (firstCoach) firstCoach.click();
-            }
-        } catch (error) {
-            console.error('Error loading coaches:', error);
-            const msg = window.showToast ? null : 'Failed to load coaches. Please try refreshing the page.';
-            if (msg) {
-                chatMessages.innerHTML = `
-                    <div class="alert alert-danger">
-                        ${msg}
-                    </div>
-                `;
-            } else {
-                // If global showToast exists, show plain English toast
-                if (window.showToast) window.showToast('Failed to load coaches.', false);
-            }
-        }
-    }
+    //         if (coachIdParam) {
+    //             // Hide coach list (already hidden by default)
+    //             // Auto-select the coach
+    //             const coachCard = document.querySelector(`.coach-item[data-id="${coachIdParam}"]`);
+    //             if (coachCard) {
+    //                 coachCard.click();
+    //             } else {
+    //                 // If not found, select first coach
+    //                 const firstCoach = document.querySelector('.coach-item');
+    //                 if (firstCoach) firstCoach.click();
+    //             }
+    //         } else {
+    //             // Show coach list panel if no coach param
+    //             if (coachListPanel) coachListPanel.style.display = '';
+    //             // Optionally, auto-select the first coach and restore its chat
+    //             const firstCoach = document.querySelector('.coach-item');
+    //             if (firstCoach) firstCoach.click();
+    //         }
+    //     } catch (error) {
+    //         console.error('Error loading coaches:', error);
+    //         const msg = window.showToast ? null : 'Failed to load coaches. Please try refreshing the page.';
+    //         if (msg) {
+    //             chatMessages.innerHTML = `
+    //                 <div class="alert alert-danger">
+    //                     ${msg}
+    //                 </div>
+    //             `;
+    //         } else {
+    //             // If global showToast exists, show plain English toast
+    //             if (window.showToast) window.showToast('Failed to load coaches.', false);
+    //         }
+    //     }
+    // }
 
     function getRandomStatus() {
         const statuses = ['online', 'away', 'offline'];
