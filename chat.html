@@ -54,7 +54,8 @@
 }
 
 #gamesList img {
-	width: unset;
+	width: 50px;
+	height: 50px;
 }
 
 #gamesList .list-group-item.active {
@@ -433,7 +434,7 @@ nav.container::after {
 }
 
 .coach-card h6 {
-	text-align: left;
+	text-align: center;
 }
 
 @keyframes slideInRight {
@@ -566,6 +567,158 @@ nav.container::after {
         box-shadow: 0 0 12px rgba(0, 170, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.2);
         animation: statusPulseResponding 1s ease-in-out infinite;
       }
+
+.coach-list-panel {
+	margin-right: 20px;
+}
+
+.chatbot-list {
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+/* Bootstrap 3 compatibility adjustments */
+.d-flex {
+	display: flex !important;
+}
+
+.justify-content-center {
+	justify-content: center !important;
+}
+
+.align-items-center {
+	align-items: center !important;
+}
+
+.align-items-start {
+	align-items: flex-start !important;
+}
+
+.flex-nowrap {
+	flex-wrap: nowrap !important;
+}
+
+.gap-2 > * + * {
+	margin-left: 8px;
+}
+
+.gap-3 > * + * {
+	margin-left: 16px;
+}
+
+.mb-0 {
+	margin-bottom: 0 !important;
+}
+
+.mb-1 {
+	margin-bottom: 4px !important;
+}
+
+.mb-3 {
+	margin-bottom: 16px !important;
+}
+
+.mt-3 {
+	margin-top: 16px !important;
+}
+
+.p-0 {
+	padding: 0 !important;
+}
+
+.w-100 {
+	width: 100% !important;
+}
+
+.fw-semibold {
+	font-weight: 600 !important;
+}
+
+.text-muted {
+	color: #6c757d !important;
+}
+
+.d-none {
+	display: none !important;
+}
+
+.border-0 {
+	border: 0 !important;
+}
+
+.bg-transparent {
+	background-color: transparent !important;
+}
+
+.btn-outline-light {
+	color: #f8f9fa;
+	border-color: #f8f9fa;
+	background: transparent;
+}
+
+.btn-outline-light:hover {
+	background-color: #f8f9fa;
+	color: #343a40;
+}
+
+.btn-outline-secondary {
+	color: #6c757d;
+	border-color: #6c757d;
+	background: transparent;
+}
+
+.btn-outline-secondary:hover {
+	background-color: #6c757d;
+	color: white;
+}
+
+.btn-sm {
+	padding: 4px 8px;
+	font-size: 12px;
+	border-radius: 3px;
+}
+
+.me-1 {
+	margin-right: 4px !important;
+}
+
+/* Row and grid system adjustments */
+.g-4 > * {
+	padding: 1rem;
+}
+
+.row.g-4 {
+	margin-left: -1rem;
+	margin-right: -1rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+	.chat-window {
+		height: 500px;
+	}
+	
+	.chat-header {
+		padding: 15px;
+	}
+	
+	.chat-messages {
+		padding: 15px;
+	}
+	
+	.chat-input {
+		padding: 15px;
+	}
+	
+	.coach-list-panel {
+		margin-right: 0;
+		margin-bottom: 20px;
+	}
+	
+	.flex-nowrap {
+		flex-wrap: wrap !important;
+	}
+}
     </style>
   </head>
   <body>
@@ -919,7 +1072,7 @@ nav.container::after {
             }
         };
         
-        console.log('Toast test function available: testToast(true) or testToast(false)');
+        
     });
 </script>
   </body>
