@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://brainstove.com/server/chat_api";
+export const API_BASE_URL = "/server/chat_api";
