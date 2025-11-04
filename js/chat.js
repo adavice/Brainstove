@@ -185,11 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const headerStatus = headerName.querySelector('.coach-status');
                 headerStatus.className = `coach-status status-${status === 'responding' ? currentStatus : status}`;
                 
-                // Update status badge near avatar
-                const statusBadge = document.getElementById('chatCoachStatusBadge');
-                if (statusBadge) {
-                    statusBadge.className = `coach-status-badge status-${status === 'responding' ? currentStatus : status}`;
-                }
             }
 
             if (status !== 'responding') {

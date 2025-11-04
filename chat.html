@@ -334,15 +334,10 @@ nav.container::after {
 
 /* Chat empty state icon */
 .chat-empty-state i {
-	font-size: 64px !important;
+	font-size: 64px;
 	margin-bottom: 25px;
 	color: var(--highlight);
 	opacity: 0.7;
-}
-
-/* Coach avatar icon */
-.coach-item-avatar i {
-	font-size: 24px;
 }
 
 /* File upload button hidden input */
@@ -708,13 +703,13 @@ nav.container::after {
 .chat-window {
 	display: flex;
 	flex-direction: column;
-	height: 600px;
+	min-height: 600px;
 }
 
 .chat-header {
 	background: var(--high_grad);
 	color: var(--main-text);
-	padding: 25px;
+	padding: 15px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 	backdrop-filter: blur(10px);
 }
@@ -750,8 +745,13 @@ nav.container::after {
 	color: #6c757d;
 }
 
+.chat-empty-state h5 i {
+	font-size: 2.4rem;
+	color: #fff;
+	vertical-align: sub;
+}
+
 .chat-empty-state i {
-	font-size: 48px;
 	margin-bottom: 20px;
 	color: var(--secondary);
 }
@@ -1160,7 +1160,7 @@ nav.container::after {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
 	.chat-window {
-		height: 500px;
+		min-height: 500px;
 	}
 	
 	.chat-header {
@@ -1188,7 +1188,7 @@ nav.container::after {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
 	.chat-window {
-		height: 500px;
+		min-height: 500px;
 	}
 
 	.chat-input-container {
@@ -1299,7 +1299,7 @@ nav.container::after {
 										<div class="coach-item-avatar" id="chatCoachAvatar">
 											
 										</div>
-										<div class="coach-status-badge" id="chatCoachStatusBadge"></div>
+										
 									</div>
 									<div>
 										<h6 class="mb-1 fw-semibold chat-coach-name" id="chatCoachName">
@@ -1329,6 +1329,7 @@ nav.container::after {
 								<i class="fas fa-comments"></i>
 								<h5 data-i18n="Welcome to LevelGuidz Chat!">Welcome to Brainstove Chat!</h5>
 								<p data-i18n="Start a conversation paragraph">Start a conversation with our gaming assistant to get tips, strategies, and more!</p>
+								<h5>Click on <i class="fas fa-gamepad"></i> above to select a game and coach!</h5>
 							</div>
 						</div>
 						<div class="typing-indicator text-muted small d-none" id="typingIndicator">
