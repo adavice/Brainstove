@@ -51,7 +51,7 @@ const games = [
     genre: "Sports",
     img: "/images/game-fifa24.jpg",
   },
-  { key: "dota2", name: "Dota 2", genre: "MOBA", img: "images/game-dota2.jpg" },
+  { key: "dota2", name: "Dota 2", genre: "MOBA", img: "/images/game-dota2.jpg" },
   {
     key: "cs2",
     name: "Counter-Strike 2",
