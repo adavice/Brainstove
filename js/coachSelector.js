@@ -3,8 +3,7 @@ import { loadCoaches } from "./chatApi.js";
 
 // Attach modal triggers for nav and hero button
 export function setupCoachSelectorTriggers() {
-  // Do not pre-initialize or pre-populate the modal on page load.
-  // We only attach triggers; the modal content loads when opened.
+  initCoachSelectorModal();
   // Nav link
   const coachingLink = document.getElementById("coachingNavLink");
   if (coachingLink) {
