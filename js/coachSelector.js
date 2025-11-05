@@ -151,7 +151,7 @@ async function renderCoachesInModal(gameKey) {
                         <small class="text-muted">${
           coach.role ? `${coach.role} ${expertLabel}` : ""
         }</small>
-                        <div class="mt-1">
+                        <div class="mt-1 text-center">
                             <span class="badge bg-primary">${statusLabel}</span>
                         </div>
                     </div>
@@ -299,6 +299,7 @@ export function showCoachSelectorModal() {
   const modal = new bootstrap.Modal(document.getElementById("gameCoachModal"));
   modal.show();
 }
+
 
 export function initCoachSelectorModal() {
   ensureModalHtml();

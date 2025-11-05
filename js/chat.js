@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.querySelector('.chat-input');
 
     // Hide coach list panel initially
-    const coachListPanel = document.querySelector('.coach-list-panel') || document.querySelector('.col-lg-3');
-    if (coachListPanel) coachListPanel.style.display = 'none';
+    // const coachListPanel = document.querySelector('.coach-list-panel') || document.querySelector('.col-lg-3');
+    // if (coachListPanel) coachListPanel.style.display = 'none';
 
     // Add preview container after chat input initialization
     chatInput.insertAdjacentHTML('afterbegin', `
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            renderCoaches(coaches);
+            // renderCoaches(coaches);
 
             if (coachIdParam) {
                 // Hide coach list (already hidden by default)
@@ -1014,18 +1014,6 @@ async function handleImageMessageWithText(base64Image, userText, coachId, origin
             voiceBtn.querySelector('i').classList.replace('bi-mic-fill', 'bi-stop-fill');
         }
     });
-
-    // Hide coach list and center chat window if coach list is hidden
-    function hideCoachListAndCenterChat() {
-        const coachListPanel = document.querySelector('.coach-list-panel');
-        const chatPanel = document.querySelector('.chat-window-panel');
-        if (coachListPanel && chatPanel) {
-            coachListPanel.style.display = 'none';
-            chatPanel.classList.add('justify-content-center');
-            chatPanel.classList.add('align-items-center');
-            chatPanel.style.margin = '0 auto';
-        }
-    }
 
     // In your loadCoachesList or wherever you hide the coach list:
     // hideCoachListAndCenterChat();
