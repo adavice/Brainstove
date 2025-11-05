@@ -1021,6 +1021,7 @@ async function handleImageMessageWithText(base64Image, userText, coachId, origin
 
     // Just keep the initial coach list load
     loadCoachesList();
+    console.log('Chat page initialized');
 });
 
 

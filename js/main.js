@@ -78,9 +78,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Make showToast available globally
   window.showToast = showToast;
 
-  // Update UI and setup other components
-  setupCoachSelectorTriggers();
-
 });
 
 document.addEventListener("DOMContentLoaded", function () {
