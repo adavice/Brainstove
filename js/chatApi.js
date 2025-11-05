@@ -1,39 +1,34 @@
 import { API_BASE_URL } from './config.js';
 
-// Promise-based cache to coalesce concurrent calls and avoid duplicate fetches
-let coachesCachePromise = null;
+let coachesCache = null;
 
 export async function loadCoaches() {
-    // Return cached promise if available
-    if (coachesCachePromise) {
+    // Return cached data if available
+    if (coachesCache) {
         console.log('Using cached coaches data');
-        return coachesCachePromise;
+        return coachesCache;
     }
 
-    // Create and cache the in-flight request
-    coachesCachePromise = (async () => {
+    try {
         const response = await fetch(`${API_BASE_URL}?action=list_coaches`, {
             method: 'GET',
             headers: { 'Accept': 'application/json' }
         });
-
+        
         if (!response.ok) {
             throw new Error(`Failed to load coaches: ${response.status} ${response.statusText}`);
         }
-
+        
         const data = await response.json();
+        
+        // Cache the result
+        coachesCache = data;
         console.log('Fetched and cached coaches data');
-        return data;
-    })();
-
-    // If the request fails, clear the cache so a future retry can occur
-    coachesCachePromise = coachesCachePromise.catch(err => {
-        console.error('Error loading coaches:', err);
-        coachesCachePromise = null;
-        throw err;
-    });
-
-    return coachesCachePromise;
+        return coachesCache;
+    } catch (error) {
+        console.error('Error loading coaches:', error);
+        throw error; // Re-throw to let callers handle it
+    }
 }
 
 export function getCurrentUser() {
