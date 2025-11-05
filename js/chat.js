@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageInput = document.querySelector('textarea');
     const sendButton = document.querySelector('.send-btn');
     const chatInput = document.querySelector('.chat-input');
+    // Optional left panel (often hidden/removed on this page)
+    const coachListPanel = document.querySelector('.coach-list-panel');
 
-    // Hide coach list panel initially
-    const coachListPanel = document.querySelector('.coach-list-panel') || document.querySelector('.col-lg-3');
-    if (coachListPanel) coachListPanel.style.display = 'none';
 
     // Add preview container after chat input initialization
     chatInput.insertAdjacentHTML('afterbegin', `
@@ -38,8 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const coachIdParam = urlParams.get('coach');
 
+            // Always load coaches once (chatApi caches across calls)
+            coaches = await loadCoaches();
+
             try {
-                coaches = await loadCoaches();
                 if (coachIdParam) {
                     // Only load chat history for the selected coach
                     history = await loadChatHistory(coachIdParam);
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show plain English toast
                     if (window.showToast) window.showToast('Please log in to view the chat.', false);
                     else showToast('Please log in to view the chat.', false);
-                    coaches = await loadCoaches();
+                    // Do NOT reload coaches; we already have them
                     history = [];
                 } else {
                     throw historyError;
@@ -81,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            renderCoaches(coaches);
+            // renderCoaches(coaches);
 
             if (coachIdParam) {
                 // Hide coach list (already hidden by default)
@@ -133,29 +134,29 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.setItem('coachStatuses', JSON.stringify(storedStatuses));
     }
 
-    function renderCoaches(coaches) {
-        coachList.innerHTML = coaches.map(coach => {
-            const storedStatus = getStoredStatus(coach.id);
-            const status = storedStatus || coach.status || getRandomStatus();
-            if (!storedStatus) {
-                storeStatus(coach.id, status);
-            }
-            return `
-                <div class="coach-item d-flex align-items-center gap-3" data-id="${coach.id}" data-status="${status}">
-                    <div class="coach-item-avatar" style="background-image: url('${coach.avatar || DEFAULT_AVATAR}')">
-                    </div>
-                    <div>
-                        <h6 class="mb-0">${coach.name} <div class="coach-status status-${status}"></div></h6>
-                        <small class="text-muted">${coach.role}</small>
-                    </div>
-                </div>
-            `;
-        }).join('');
+    // function renderCoaches(coaches) {
+    //     coachList.innerHTML = coaches.map(coach => {
+    //         const storedStatus = getStoredStatus(coach.id);
+    //         const status = storedStatus || coach.status || getRandomStatus();
+    //         if (!storedStatus) {
+    //             storeStatus(coach.id, status);
+    //         }
+    //         return `
+    //             <div class="coach-item d-flex align-items-center gap-3" data-id="${coach.id}" data-status="${status}">
+    //                 <div class="coach-item-avatar" style="background-image: url('${coach.avatar || DEFAULT_AVATAR}')">
+    //                 </div>
+    //                 <div>
+    //                     <h6 class="mb-0">${coach.name} <div class="coach-status status-${status}"></div></h6>
+    //                     <small class="text-muted">${coach.role}</small>
+    //                 </div>
+    //             </div>
+    //         `;
+    //     }).join('');
 
-        document.querySelectorAll('.coach-item').forEach(item => {
-            item.addEventListener('click', () => selectCoach(item));
-        });
-    }
+    //     document.querySelectorAll('.coach-item').forEach(item => {
+    //         item.addEventListener('click', () => selectCoach(item));
+    //     });
+    // }
 
     function setCoachStatus(coachId, status, force = false) {
         const coachItem = document.querySelector(`.coach-item[data-id="${coachId}"]`);
