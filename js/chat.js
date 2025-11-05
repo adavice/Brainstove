@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.querySelector('.chat-input');
 
     // Hide coach list panel initially
-    const coachListPanel = document.querySelector('.coach-list-panel') || document.querySelector('.col-lg-3');
+    const coachListPanel = document.querySelector('.coach-list-panel');
     if (coachListPanel) coachListPanel.style.display = 'none';
 
     // Add preview container after chat input initialization
@@ -38,8 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const coachIdParam = urlParams.get('coach');
 
+            // Always load coaches once (chatApi caches across calls)
+            coaches = await loadCoaches();
+
             try {
-                coaches = await loadCoaches();
                 if (coachIdParam) {
                     // Only load chat history for the selected coach
                     history = await loadChatHistory(coachIdParam);
@@ -53,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show plain English toast
                     if (window.showToast) window.showToast('Please log in to view the chat.', false);
                     else showToast('Please log in to view the chat.', false);
-                    coaches = await loadCoaches();
+                    // Do NOT reload coaches; we already have them
                     history = [];
                 } else {
                     throw historyError;
@@ -1016,16 +1018,6 @@ async function handleImageMessageWithText(base64Image, userText, coachId, origin
     });
 
     // Hide coach list and center chat window if coach list is hidden
-    function hideCoachListAndCenterChat() {
-        const coachListPanel = document.querySelector('.coach-list-panel');
-        const chatPanel = document.querySelector('.chat-window-panel');
-        if (coachListPanel && chatPanel) {
-            coachListPanel.style.display = 'none';
-            chatPanel.classList.add('justify-content-center');
-            chatPanel.classList.add('align-items-center');
-            chatPanel.style.margin = '0 auto';
-        }
-    }
 
     // In your loadCoachesList or wherever you hide the coach list:
     // hideCoachListAndCenterChat();
