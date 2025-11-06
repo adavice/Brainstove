@@ -1,35 +1,38 @@
 import { API_BASE_URL } from './config.js';
 
-// Simple value cache (single-flight caching can be added later if needed)
+// Single-flight cache: coalesce concurrent calls and cache result
 let coachesCache = null;
+let coachesCachePromise = null;
 
 export async function loadCoaches() {
-    // Return cached data if available
+    // Serve from cache if we have it
     if (coachesCache) {
-        console.log('Using cached coaches data');
         return coachesCache;
+    }
+    // If a request is already in flight, return the same promise
+    if (coachesCachePromise) {
+        return coachesCachePromise;
     }
 
-    try {
-        const response = await fetch(`${API_BASE_URL}?action=list_coaches`, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        });
-        
-        if (!response.ok) {
-            throw new Error(`Failed to load coaches: ${response.status} ${response.statusText}`);
+    coachesCachePromise = (async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}?action=list_coaches`, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' }
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to load coaches: ${response.status} ${response.statusText}`);
+            }
+            const data = await response.json();
+            coachesCache = data;
+            return coachesCache;
+        } finally {
+            // Clear the in-flight promise regardless of outcome
+            coachesCachePromise = null;
         }
-        
-        const data = await response.json();
-        
-        // Cache the result
-        coachesCache = data;
-        console.log('Fetched and cached coaches data');
-        return coachesCache;
-    } catch (error) {
-        console.error('Error loading coaches:', error);
-        throw error; // Re-throw to let callers handle it
-    }
+    })();
+
+    return coachesCachePromise;
 }
 
 // Try to infer the current user id from common sources; return null if unknown

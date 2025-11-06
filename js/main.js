@@ -81,6 +81,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Wire up coach selector triggers lazily (no preloading inside the module)
+  try { setupCoachSelectorTriggers(); } catch {}
+
   // Determine login state (supports different stored shapes)
   let isLogged = false;
 

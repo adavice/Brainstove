@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show plain English toast
                     if (window.showToast) window.showToast('Please log in to view the chat.', false);
                     else showToast('Please log in to view the chat.', false);
-                    coaches = await loadCoaches();
                     history = [];
                 } else {
                     throw historyError;
@@ -85,10 +84,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (coachIdParam) {
                 // Hide coach list (already hidden by default)
-                // Auto-select the coach
+                // Auto-select the coach by clicking the card if present
                 const coachCard = document.querySelector(`.coach-item[data-id="${coachIdParam}"]`);
                 if (coachCard) {
                     coachCard.click();
+                } else if (!coachList) {
+                    // No left panel: activate header and messages directly from data
+                    const coach = coaches.find(c => String(c.id) === String(coachIdParam)) || coaches[0];
+                    if (coach) {
+                        const status = getStoredStatus(coach.id) || coach.status || getRandomStatus();
+                        storeStatus(coach.id, status);
+                        const headerAvatar = document.getElementById('chatCoachAvatar');
+                        const headerName = document.getElementById('chatCoachName');
+                        const headerRole = document.getElementById('chatCoachRole');
+                        if (headerAvatar) headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
+                        if (headerName) headerName.innerHTML = `${coach.name} <div class=\"coach-status status-${status}\"></div>`;
+                        if (headerRole) headerRole.textContent = coach.role || '';
+                        activeCoachId = String(coach.id);
+                        renderMessagesForCoach(activeCoachId);
+                    }
                 } else {
                     // If not found, select first coach
                     const firstCoach = document.querySelector('.coach-item');
@@ -99,7 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (coachListPanel) coachListPanel.style.display = '';
                 // Optionally, auto-select the first coach and restore its chat
                 const firstCoach = document.querySelector('.coach-item');
-                if (firstCoach) firstCoach.click();
+                if (firstCoach) {
+                    firstCoach.click();
+                } else if (!coachList && coaches.length) {
+                    const coach = coaches[0];
+                    const status = getStoredStatus(coach.id) || coach.status || getRandomStatus();
+                    storeStatus(coach.id, status);
+                    const headerAvatar = document.getElementById('chatCoachAvatar');
+                    const headerName = document.getElementById('chatCoachName');
+                    const headerRole = document.getElementById('chatCoachRole');
+                    if (headerAvatar) headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
+                    if (headerName) headerName.innerHTML = `${coach.name} <div class=\"coach-status status-${status}\"></div>`;
+                    if (headerRole) headerRole.textContent = coach.role || '';
+                    activeCoachId = String(coach.id);
+                    renderMessagesForCoach(activeCoachId);
+                }
             }
         } catch (error) {
             console.error('Error loading coaches:', error);

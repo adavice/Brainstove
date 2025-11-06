@@ -3,7 +3,6 @@ import { loadCoaches } from "./chatApi.js";
 
 // Attach modal triggers for nav and hero button
 export function setupCoachSelectorTriggers() {
-  initCoachSelectorModal();
   // Nav link
   const coachingLink = document.getElementById("coachingNavLink");
   if (coachingLink) {
@@ -23,8 +22,8 @@ export function setupCoachSelectorTriggers() {
 }
 // coachSelector.js
 // Renders and manages the game/coach selection modal for reuse on any page
-// Usage: import { showCoachSelectorModal, initCoachSelectorModal } from './coachSelector.js';
-// Then call initCoachSelectorModal() on page load, and showCoachSelectorModal() to open the modal
+// Usage: import { setupCoachSelectorTriggers, showCoachSelectorModal } from './coachSelector.js';
+// Then call setupCoachSelectorTriggers() on page load to wire buttons/links, and showCoachSelectorModal() to open lazily
 
 const games = [
   {
@@ -282,33 +281,8 @@ export function showCoachSelectorModal() {
     let activeBtn = gamesList.querySelector(".list-group-item.active");
     let initialGame = activeBtn ? activeBtn.getAttribute("data-game") : null;
     renderCoachesInModal(initialGame);
-    gamesList.addEventListener(
-      "click",
-      (e) => {
-        const btn = e.target.closest(".list-group-item");
-        if (!btn) return;
-        gamesList
-          .querySelectorAll(".list-group-item")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        renderCoachesInModal(btn.getAttribute("data-game"));
-      },
-      { once: true }
-    );
-  }
-  const modal = new bootstrap.Modal(document.getElementById("gameCoachModal"));
-  modal.show();
-}
-
-export function initCoachSelectorModal() {
-  ensureModalHtml();
-  renderGamesList();
-  const gamesList = document.getElementById("gamesList");
-  if (gamesList) {
-    let activeBtn = gamesList.querySelector(".list-group-item.active");
-    let initialGame = activeBtn ? activeBtn.getAttribute("data-game") : null;
-    renderCoachesInModal(initialGame);
-    gamesList.addEventListener("click", (e) => {
+    // Attach a single click handler; overwrite any previous to avoid duplicates across opens
+    gamesList.onclick = (e) => {
       const btn = e.target.closest(".list-group-item");
       if (!btn) return;
       gamesList
@@ -316,6 +290,8 @@ export function initCoachSelectorModal() {
         .forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       renderCoachesInModal(btn.getAttribute("data-game"));
-    });
+    };
   }
+  const modal = new bootstrap.Modal(document.getElementById("gameCoachModal"));
+  modal.show();
 }
