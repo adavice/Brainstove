@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const coachIdParam = urlParams.get('coach');
 
+            // Show initial loading spinner (if present)
+            const initialSpinner = document.getElementById('initialLoadingSpinner');
+            if (initialSpinner) initialSpinner.style.display = 'block';
+
             try {
                 coaches = await loadCoaches();
                 if (coachIdParam) {
@@ -142,6 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // If global showToast exists, show plain English toast
                 if (window.showToast) window.showToast('Failed to load coaches.', false);
             }
+        }
+        finally {
+            const initialSpinner = document.getElementById('initialLoadingSpinner');
+            if (initialSpinner) initialSpinner.style.display = 'none';
         }
     }
 
