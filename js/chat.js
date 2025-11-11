@@ -101,9 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         const headerAvatar = document.getElementById('chatCoachAvatar');
                         const headerName = document.getElementById('chatCoachName');
                         const headerRole = document.getElementById('chatCoachRole');
+                        const headerStatus = document.getElementById('chatCoachStatus');
                         if (headerAvatar) {
                             headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
-                            headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
+                        }
+                        if (headerStatus) {
+                            headerStatus.className = `coach-status status-${status}`;
+                            headerStatus.style.display = 'block';
                         }
                         if (headerName) headerName.textContent = coach.name;
                         if (headerRole) headerRole.textContent = coach.role || '';
@@ -129,9 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const headerAvatar = document.getElementById('chatCoachAvatar');
                     const headerName = document.getElementById('chatCoachName');
                     const headerRole = document.getElementById('chatCoachRole');
+                    const headerStatus = document.getElementById('chatCoachStatus');
                     if (headerAvatar) {
                         headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
-                        headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
+                    }
+                    if (headerStatus) {
+                        headerStatus.className = `coach-status status-${status}`;
+                        headerStatus.style.display = 'block';
                     }
                     if (headerName) headerName.textContent = coach.name;
                     if (headerRole) headerRole.textContent = coach.role + " expert" || '';
@@ -185,9 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
                 <div class="coach-item d-flex align-items-center gap-3" data-id="${coach.id}" data-status="${status}">
                     <div class="coach-item-avatar" style="background-image: url('${coach.avatar || DEFAULT_AVATAR}')">
+                        <div class="coach-status status-${status}"></div>
                     </div>
                     <div>
-                        <h6 class="mb-0">${coach.name} <div class="coach-status status-${status}"></div></h6>
+                        <h6 class="mb-0">${coach.name}</h6>
                         <small class="text-muted">${coach.role} expert</small>
                     </div>
                 </div>
@@ -202,8 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setCoachStatus(coachId, status, force = false) {
         const coachItem = document.querySelector(`.coach-item[data-id="${coachId}"]`);
         const typingIndicator = document.querySelector('.typing-indicator');
-        const headerAvatar = document.getElementById('chatCoachAvatar');
-        const headerAvatarStatus = headerAvatar ? headerAvatar.querySelector('.coach-status') : null;
+        const headerStatus = document.getElementById('chatCoachStatus');
         
         if (status === 'responding') {
             // Show typing indicator
@@ -217,8 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typingIndicator) typingIndicator.classList.add('d-none');
             
             // Update avatar status dot
-            if (headerAvatarStatus) {
-                headerAvatarStatus.className = `coach-status status-${status}`;
+            if (headerStatus) {
+                headerStatus.className = `coach-status status-${status}`;
+                headerStatus.style.display = 'block';
             }
             
             // Update coach item in list if present
@@ -422,7 +431,11 @@ async function handleTextMessage(message, coachId, originalStatus) {
         const headerAvatar = document.getElementById('chatCoachAvatar');
         if (headerAvatar) {
             headerAvatar.style.backgroundImage = avatar;
-            headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
+        }
+        const headerStatus = document.getElementById('chatCoachStatus');
+        if (headerStatus) {
+            headerStatus.className = `coach-status status-${status}`;
+            headerStatus.style.display = 'block';
         }
         document.getElementById('chatCoachName').textContent = name;
         document.getElementById('chatCoachRole').textContent = role;
