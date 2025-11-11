@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
                     }
                     if (headerName) headerName.textContent = coach.name;
-                    if (headerRole) headerRole.textContent = coach.role || '';
+                    if (headerRole) headerRole.textContent = coach.role + " expert" || '';
                     activeCoachId = String(coach.id);
                     renderMessagesForCoach(activeCoachId);
                 }
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div>
                         <h6 class="mb-0">${coach.name} <div class="coach-status status-${status}"></div></h6>
-                        <small class="text-muted">${coach.role}</small>
+                        <small class="text-muted">${coach.role} expert</small>
                     </div>
                 </div>
             `;
