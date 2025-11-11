@@ -1,8 +1,8 @@
 // Filter coach/AI text: remove bold, asterisks, headers, preserve newlines as <br>
-import { loadChatHistory, loadCoaches } from './chatApi.js';
-import { convertToBase64, resizeImage } from './mediaUtils.js';
-import { DEFAULT_AVATAR } from './constants.js';
-import { API_BASE_URL } from './config.js';
+import { loadChatHistory, loadCoaches } from '/js/chatApi.js';
+import { convertToBase64, resizeImage } from '/js/mediaUtils.js';
+import { DEFAULT_AVATAR } from '/js/constants.js';
+import { API_BASE_URL } from '/js/config.js';
 
 let chatHistory = new Map(); // Store chat history by coach ID
 let activeCoachId = null; // Track current active coach
@@ -101,8 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         const headerAvatar = document.getElementById('chatCoachAvatar');
                         const headerName = document.getElementById('chatCoachName');
                         const headerRole = document.getElementById('chatCoachRole');
-                        if (headerAvatar) headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
-                        if (headerName) headerName.innerHTML = `${coach.name} <div class=\"coach-status status-${status}\"></div>`;
+                        if (headerAvatar) {
+                            headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
+                            headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
+                        }
+                        if (headerName) headerName.textContent = coach.name;
                         if (headerRole) headerRole.textContent = coach.role || '';
                         activeCoachId = String(coach.id);
                         renderMessagesForCoach(activeCoachId);
@@ -126,8 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const headerAvatar = document.getElementById('chatCoachAvatar');
                     const headerName = document.getElementById('chatCoachName');
                     const headerRole = document.getElementById('chatCoachRole');
-                    if (headerAvatar) headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
-                    if (headerName) headerName.innerHTML = `${coach.name} <div class=\"coach-status status-${status}\"></div>`;
+                    if (headerAvatar) {
+                        headerAvatar.style.backgroundImage = `url('${coach.avatar || DEFAULT_AVATAR}')`;
+                        headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
+                    }
+                    if (headerName) headerName.textContent = coach.name;
                     if (headerRole) headerRole.textContent = coach.role || '';
                     activeCoachId = String(coach.id);
                     renderMessagesForCoach(activeCoachId);
@@ -195,37 +201,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setCoachStatus(coachId, status, force = false) {
         const coachItem = document.querySelector(`.coach-item[data-id="${coachId}"]`);
-        if (coachItem) {
-            const statusDot = coachItem.querySelector('.coach-status');
-            const currentStatus = coachItem.dataset.status;
-            const typingIndicator = document.querySelector('.typing-indicator');
-            const coachName = coachItem.querySelector('h6').textContent.trim();
-
-            if (status === 'responding') {
-                // Show typing indicator with coach name
+        const typingIndicator = document.querySelector('.typing-indicator');
+        const headerAvatar = document.getElementById('chatCoachAvatar');
+        const headerAvatarStatus = headerAvatar ? headerAvatar.querySelector('.coach-status') : null;
+        
+        if (status === 'responding') {
+            // Show typing indicator
+            if (typingIndicator) {
+                const coachName = document.getElementById('chatCoachName')?.textContent || 'Coach';
                 typingIndicator.querySelector('span').innerHTML = `<i class="bi bi-keyboard me-2"></i>${coachName}`;
                 typingIndicator.classList.remove('d-none');
-            } else {
-                // Hide typing indicator
-                typingIndicator.classList.add('d-none');
-                
+            }
+        } else {
+            // Hide typing indicator
+            if (typingIndicator) typingIndicator.classList.add('d-none');
+            
+            // Update avatar status dot
+            if (headerAvatarStatus) {
+                headerAvatarStatus.className = `coach-status status-${status}`;
+            }
+            
+            // Update coach item in list if present
+            if (coachItem) {
+                const currentStatus = coachItem.dataset.status;
                 if (status !== currentStatus || force) {
                     coachItem.dataset.status = status;
-                    statusDot.className = `coach-status status-${status}`;
+                    const statusDot = coachItem.querySelector('.coach-status');
+                    if (statusDot) statusDot.className = `coach-status status-${status}`;
                 }
             }
+        }
 
-            // Update header status
-            if (coachItem.classList.contains('active')) {
-                const headerName = document.getElementById('chatCoachName');
-                const headerStatus = headerName.querySelector('.coach-status');
-                headerStatus.className = `coach-status status-${status === 'responding' ? currentStatus : status}`;
-                
-            }
-
-            if (status !== 'responding') {
-                storeStatus(coachId, status);
-            }
+        if (status !== 'responding') {
+            storeStatus(coachId, status);
         }
     }
 
@@ -411,15 +419,13 @@ async function handleTextMessage(message, coachId, originalStatus) {
         const name = coachItem.querySelector('h6').textContent;
         const role = coachItem.querySelector('small').textContent;
 
-        document.getElementById('chatCoachAvatar').style.backgroundImage = avatar;
-        document.getElementById('chatCoachName').innerHTML = `${name} <div class="coach-status status-${status}"></div>`;
-        document.getElementById('chatCoachRole').textContent = role;
-        
-        // Update status badge near avatar
-        const statusBadge = document.getElementById('chatCoachStatusBadge');
-        if (statusBadge) {
-            statusBadge.className = `coach-status-badge status-${status}`;
+        const headerAvatar = document.getElementById('chatCoachAvatar');
+        if (headerAvatar) {
+            headerAvatar.style.backgroundImage = avatar;
+            headerAvatar.innerHTML = `<div class="coach-status status-${status}"></div>`;
         }
+        document.getElementById('chatCoachName').textContent = name;
+        document.getElementById('chatCoachRole').textContent = role;
         
         // Load chat history for selected coach
         activeCoachId = newCoachId;
